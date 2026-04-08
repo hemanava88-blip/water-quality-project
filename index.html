@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Quality Prediction System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Ambient Background Effects -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fa-solid fa-droplet logo-icon"></i>
+                <h1>Water Quality<br><span>Prediction System</span></h1>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="tab-btn active" data-target="tab-dataset"><i class="fa-solid fa-table"></i> Dataset</button>
+                <button class="tab-btn" data-target="tab-explanation"><i class="fa-solid fa-book-open"></i> Dataset Explanation</button>
+                <button class="tab-btn" data-target="tab-steps"><i class="fa-solid fa-list-ol"></i> Processing Steps</button>
+                <button class="tab-btn" data-target="tab-sample"><i class="fa-solid fa-microscope"></i> Sample Prediction</button>
+                <button class="tab-btn" data-target="tab-output"><i class="fa-solid fa-clipboard-check"></i> Final Output</button>
+                <button class="tab-btn" data-target="tab-viz"><i class="fa-solid fa-chart-pie"></i> Visualization</button>
+                <button class="tab-btn" data-target="tab-performance"><i class="fa-solid fa-gauge-high"></i> Model Performance</button>
+                <button class="tab-btn" data-target="tab-comparison"><i class="fa-solid fa-code-compare"></i> Model Comparison</button>
+                <button class="tab-btn" data-target="tab-ml-code"><i class="fa-solid fa-laptop-code"></i> ML Model Code</button>
+                <button class="tab-btn" data-target="tab-alerts"><i class="fa-solid fa-bell"></i> Smart Alerts</button>
+            </nav>
+        </aside>
+
+        <!-- Main Content Base -->
+        <main class="main-content">
+            
+            <!-- Tab 2: Dataset -->
+            <section id="tab-dataset" class="tab-pane active">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-database"></i> Full Dataset View</h2>
+                    <p>Scrollable table listing extracted water features.</p>
+                </div>
+                <div class="glass-card table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>ID</th><th>pH</th><th>DO</th><th>Turbidity</th><th>Conductivity</th><th>TDS</th><th>Nitrate</th><th>Phosphate</th><th>BOD</th><th>COD</th><th>Coliform</th><th>Ammonia</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>101</td><td>7.2</td><td>6.5</td><td>4.1</td><td>450</td><td>250</td><td>2.1</td><td>0.5</td><td>2.5</td><td>15.0</td><td>50</td><td>0.2</td></tr>
+                            <tr class="highlight-row"><td>102</td><td>6.8</td><td>4.2</td><td>12.5</td><td>800</td><td>480</td><td>8.5</td><td>2.1</td><td class="text-warning">12.0</td><td class="text-warning">45.0</td><td class="text-danger">1200</td><td class="text-danger">1.8</td></tr>
+                            <tr><td>103</td><td>7.5</td><td>8.1</td><td>2.0</td><td>300</td><td>180</td><td>1.0</td><td>0.1</td><td>1.2</td><td>10.0</td><td>10</td><td>0.1</td></tr>
+                            <tr><td>104</td><td>5.9</td><td>2.5</td><td>25.0</td><td>1200</td><td>750</td><td>15.0</td><td>5.5</td><td>25.0</td><td>80.0</td><td>5000</td><td>4.5</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tab 3: Dataset Explanation -->
+            <section id="tab-explanation" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-book-open"></i> Feature Definitions</h2>
+                </div>
+                <div class="param-grid">
+                    <div class="param-card"><div class="icon"><i class="fa-solid fa-vial"></i></div><h3>pH</h3><p>acidity</p></div>
+                    <div class="param-card"><div class="icon"><i class="fa-solid fa-wind"></i></div><h3>DO</h3><p>oxygen level</p></div>
+                    <div class="param-card warning"><div class="icon"><i class="fa-solid fa-leaf"></i></div><h3>BOD</h3><p>organic pollution</p></div>
+                    <div class="param-card warning"><div class="icon"><i class="fa-solid fa-flask"></i></div><h3>COD</h3><p>chemical pollution</p></div>
+                    <div class="param-card danger"><div class="icon"><i class="fa-solid fa-bugs"></i></div><h3>Coliform</h3><p>bacteria contamination</p></div>
+                    <div class="param-card danger"><div class="icon"><i class="fa-solid fa-industry"></i></div><h3>Ammonia</h3><p>industrial waste</p></div>
+                </div>
+            </section>
+
+            <!-- Tab 4: Processing Steps -->
+            <section id="tab-steps" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-gears"></i> Processing Workflow</h2>
+                </div>
+                <div class="glass-card">
+                    <div class="timeline">
+                        <span class="step-badge">1. Load Dataset</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge">2. Data Cleaning</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge">3. Feature Selection</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge">4. Water Quality Score</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge">5. Normalization</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge">6. Category Creation</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge">7. Train-Test Split</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge highlight">8. Model Training</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge highlight">9. Prediction</span> <i class="fa-solid fa-arrow-right step-arrow"></i>
+                        <span class="step-badge final">10. Source Identification</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 5: Sample Prediction -->
+            <section id="tab-sample" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-microscope"></i> Sample Extracted</h2>
+                </div>
+                <div class="glass-card table-container">
+                    <table class="data-table highlight-table">
+                        <thead><tr><th>Sample ID</th><th>pH</th><th>DO</th><th>BOD</th><th>COD</th><th>Coliform</th><th>Ammonia</th></tr></thead>
+                        <tbody>
+                            <tr><td>Target Sample</td><td>6.8</td><td>4.2</td><td class="critic">12.0</td><td class="critic">45.0</td><td class="severe">1200</td><td class="severe">1.8</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tab 6: Final Output -->
+            <section id="tab-output" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-clipboard-check"></i> Output Diagnosis</h2>
+                </div>
+                <div class="output-dashboard">
+                    <div class="glass-card primary-result">
+                        <div class="score">
+                            <span class="label">Water Quality Score</span>
+                            <span class="value">0.63</span>
+                        </div>
+                        <div class="status">
+                            <span class="category">Bad Water</span>
+                            <span class="badge-danger">Risk Level: High</span>
+                        </div>
+                    </div>
+                    
+                    <div class="details-grid">
+                        <div class="glass-card detail-card">
+                            <h3><i class="fa-solid fa-triangle-exclamation"></i> Issues</h3>
+                            <ul>
+                                <li class="text-danger">High BOD</li>
+                                <li class="text-danger">High Coliform</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card detail-card">
+                            <h3><i class="fa-solid fa-industry"></i> Pollution Source</h3>
+                            <ul>
+                                <li>Domestic Sewage</li>
+                            </ul>
+                        </div>
+                        <div class="glass-card detail-card full-span">
+                            <h3><i class="fa-solid fa-lightbulb"></i> Solutions</h3>
+                            <div class="solutions-list">
+                                <span class="solution-tag"><i class="fa-solid fa-check"></i> Improve sewage treatment</span>
+                                <span class="solution-tag"><i class="fa-solid fa-check"></i> Chlorination</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 7: Visualization -->
+            <section id="tab-viz" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-chart-pie"></i> Visualizations</h2>
+                    <p>Charts natively rendered via Plotly components</p>
+                </div>
+                <div class="charts-layout">
+                    <div class="glass-card plot-wrapper">
+                        <h3>Water Parameter Analysis</h3>
+                        <div id="plot-bar" class="plot-canvas"></div>
+                    </div>
+                    <div class="glass-card plot-wrapper">
+                        <h3>Water Category Distribution</h3>
+                        <div id="plot-pie" class="plot-canvas"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 8: Model Performance -->
+            <section id="tab-performance" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-gauge-high"></i> Model Accuracies</h2>
+                </div>
+                
+                <div class="glass-card mt-4">
+                    <div class="metrics-row" id="metrics-target">
+                        <!-- Simulated Dynamically -->
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="code-editor mt-4">
+                        <div class="editor-header">
+                            <div class="mac-btns"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+                            <span class="filename">train_models.py</span>
+                        </div>
+<pre><code class="language-python">from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+
+rf = RandomForestClassifier()
+svm = SVC()
+knn = KNeighborsClassifier()
+
+# Fit models
+rf.fit(X_train, y_train)
+svm.fit(X_train, y_train)
+knn.fit(X_train, y_train)
+
+# Predictions
+rf_pred = rf.predict(X_test)
+svm_pred = svm.predict(X_test)
+knn_pred = knn.predict(X_test)
+
+# Accuracy Calculation
+from sklearn.metrics import accuracy_score
+rf_acc = accuracy_score(y_test, rf_pred)
+svm_acc = accuracy_score(y_test, svm_pred)
+knn_acc = accuracy_score(y_test, knn_pred)</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 9: Model Comparison -->
+            <section id="tab-comparison" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-code-compare"></i> Comparison Analysis</h2>
+                </div>
+                
+                <div id="best-model-banner" class="winner-banner"></div>
+
+                <div class="comparison-layout">
+                    <div class="glass-card">
+                        <table class="data-table">
+                            <thead><tr><th>Model</th><th>Accuracy</th></tr></thead>
+                            <tbody>
+                                <tr id="row-rf"><td>Random Forest</td><td id="acc-rf"></td></tr>
+                                <tr id="row-svm"><td>SVM</td><td id="acc-svm"></td></tr>
+                                <tr id="row-knn"><td>KNN</td><td id="acc-knn"></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="glass-card plot-wrapper">
+                        <h3>Accuracy Comparison Bar Chart</h3>
+                        <div id="plot-model-comp" class="plot-canvas"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 10: ML Code View -->
+            <section id="tab-ml-code" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-code"></i> Algorithm Execution Engine</h2>
+                </div>
+                <div class="glass-card">
+                    <div class="code-editor">
+                        <div class="editor-header">
+                            <div class="mac-btns"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+                            <span class="filename">pipeline.py</span>
+                        </div>
+<pre><code class="language-python">rf.fit(X_train, y_train)
+svm.fit(X_train, y_train)
+knn.fit(X_train, y_train)</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 11: Alerts -->
+            <section id="tab-alerts" class="tab-pane">
+                <div class="pane-header">
+                    <h2><i class="fa-solid fa-bell"></i> Conditional Alerts</h2>
+                </div>
+                <div class="glass-card">
+                    <div class="logic-rules">
+                        <h3>Evaluated Limits</h3>
+                        <ul>
+                            <li>If <code>BOD > 5</code> &rarr; Organic Pollution</li>
+                            <li>If <code>COD > 10</code> &rarr; Industrial Pollution</li>
+                            <li>If <code>Coliform > 1000</code> &rarr; Bacterial Risk</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="alert-feed">
+                        <div class="alert-item danger-alt">⚠️ High Risk Water Detected</div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- UI Logic Controller -->
+    <script src="script.js"></script>
+</body>
+</html>
